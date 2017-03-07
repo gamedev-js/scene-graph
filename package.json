@@ -1,0 +1,29 @@
+{
+  "name": "scene-graph",
+  "version": "1.0.0",
+  "description": "A very simple scene graph library",
+  "main": "index.js",
+  "scripts": {
+    "start": "node run.js",
+    "test": "tap test/*.spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gamedev-js/scene-graph.git"
+  },
+  "keywords": [
+    "scene"
+  ],
+  "author": "jwu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gamedev-js/scene-graph/issues"
+  },
+  "homepage": "https://github.com/gamedev-js/scene-graph/issues",
+  "dependencies": {
+    "gl-matrix": "gamedev-js/gl-matrix#ef104c0c"
+  },
+  "devDependencies": {
+    "electron": "^1.6.0"
+  }
+}
