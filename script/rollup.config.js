@@ -13,14 +13,14 @@ let banner = `
 module.exports = {
   entry: './index.js',
   dest: 'dist/sg.js',
-  format: 'umd',
+  format: 'iife',
   moduleName: 'sg',
   banner: banner,
   external: [
     'gl-matrix'
   ],
   globals: {
-    'gl-matrix': 'glm'
+    'gl-matrix': 'window'
   },
   sourceMap: true,
 };

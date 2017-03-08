@@ -4,9 +4,10 @@
   "description": "A very simple scene graph library",
   "main": "index.js",
   "scripts": {
-    "start": "./script/run.js",
+    "start": "node ./script/run.js",
+    "server": "http-server ./ -a localhost -p 8530 -c-1",
     "build": "rollup --config ./script/rollup.config.js",
-    "test": "tap test/*.spec.js"
+    "test": "npm run build && tap test/*.spec.js"
   },
   "repository": {
     "type": "git",
@@ -22,10 +23,11 @@
   },
   "homepage": "https://github.com/gamedev-js/scene-graph/issues",
   "dependencies": {
-    "gl-matrix": "gamedev-js/gl-matrix#ef104c0c"
+    "gl-matrix": "gamedev-js/gl-matrix#92b86f2ef"
   },
   "devDependencies": {
     "electron": "^1.6.3",
+    "http-server": "^0.9.0",
     "rollup": "^0.41.4"
   }
 }

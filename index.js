@@ -1,5 +1,5 @@
-import node from './lib/node';
+import Node from './lib/node';
 
-module.exports = {
-  node
+export default {
+  Node
 };

@@ -18,7 +18,6 @@ Only contains scene graph operations such as transform calculation, event dispat
   - node enable/disable with hierarchy
   - node clone (always deep copy)
   - event system
-  - lazy update
   - DOP ??
   - prefab ??
   - serialization ??
