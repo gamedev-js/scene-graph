@@ -4,7 +4,8 @@
   "description": "A very simple scene graph library",
   "main": "index.js",
   "scripts": {
-    "start": "node run.js",
+    "start": "./script/run.js",
+    "build": "rollup --config ./script/rollup.config.js",
     "test": "tap test/*.spec.js"
   },
   "repository": {
@@ -24,6 +25,7 @@
     "gl-matrix": "gamedev-js/gl-matrix#ef104c0c"
   },
   "devDependencies": {
-    "electron": "^1.6.0"
+    "electron": "^1.6.3",
+    "rollup": "^0.41.4"
   }
 }
