@@ -4,7 +4,7 @@ Yet another scene graph library.
 
 ## Why?
 
-Only contains scene graph operations such as transform calculation, event dispatching, cloning node. Nothing relate with rendering.
+Design for performance instead of user friendly. The code only contains scene graph operations such as calculating the transform, dispatching event and cloning nodes. It will not contains code relate with rendering.
 
 ## Reference
 

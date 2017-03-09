@@ -12,8 +12,10 @@ let banner = `
 
 module.exports = {
   entry: './index.js',
-  dest: 'dist/sg.js',
-  format: 'iife',
+  targets: [
+    { dest: 'dist/sg.js', format: 'iife' },
+    { dest: 'dist/sg.cjs.js', format: 'cjs' },
+  ],
   moduleName: 'sg',
   banner: banner,
   external: [
