@@ -9,8 +9,9 @@ Design for performance instead of user friendly. The code only contains scene gr
 ## Reference
 
   - [playcanvas/engine/graph-node](https://github.com/playcanvas/engine/blob/master/src/scene/graph-node.js)
+  - [scene-tree](https://github.com/hughsk/scene-tree)
+    - [display-tree](https://github.com/hughsk/display-tree)
   - [litescene.js](https://github.com/jagenjo/litescene.js)
-  - [kig/magi](https://github.com/kig/magi)
 
 ## TODO
 
