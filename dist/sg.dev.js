@@ -1,6 +1,6 @@
 
 /*
- * scene-graph v1.0.1
+ * scene-graph v1.0.2
  * (c) 2017 @Johnny Wu
  * Released under the MIT License.
  */
@@ -430,5 +430,5 @@ class Node {
 
 exports.Node = Node;
 
-}((this.sg = this.sg || {}),window));
+}((this.sg = this.sg || {}),window.vmath));
 //# sourceMappingURL=sg.dev.js.map

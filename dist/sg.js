@@ -1,6 +1,6 @@
 
 /*
- * scene-graph v1.0.1
+ * scene-graph v1.0.2
  * (c) 2017 @Johnny Wu
  * Released under the MIT License.
  */

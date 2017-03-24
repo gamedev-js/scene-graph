@@ -30,7 +30,7 @@ module.exports = {
     'vmath'
   ],
   globals: {
-    'vmath': 'window'
+    'vmath': 'window.vmath'
   },
   sourceMap: true,
 };
