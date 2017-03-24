@@ -1,28 +1,36 @@
 'use strict';
 
-const version = require('../package.json').version;
+const fsJetpack = require('fs-jetpack');
+const pjson = require('../package.json');
 
 let banner = `
 /*
- * gamedev-js/scene-graph v${version}
+ * ${pjson.name} v${pjson.version}
  * (c) ${new Date().getFullYear()} @Johnny Wu
  * Released under the MIT License.
  */
 `;
 
+let dest = './dist';
+let file = 'sg';
+let moduleName = 'sg';
+
+// clear directory
+fsJetpack.dir(dest, { empty: true });
+
 module.exports = {
   entry: './index.js',
   targets: [
-    { dest: 'dist/sg.js', format: 'iife' },
-    { dest: 'dist/sg.cjs.js', format: 'cjs' },
+    { dest: `${dest}/${file}.dev.js`, format: 'iife' },
+    { dest: `${dest}/${file}.js`, format: 'cjs' },
   ],
-  moduleName: 'sg',
-  banner: banner,
+  moduleName,
+  banner,
   external: [
-    'gl-matrix'
+    'vmath'
   ],
   globals: {
-    'gl-matrix': 'window'
+    'vmath': 'window'
   },
   sourceMap: true,
 };

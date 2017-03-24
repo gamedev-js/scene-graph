@@ -1,5 +1,1 @@
-import Node from './lib/node';
-
-export default {
-  Node
-};
+export {default as Node} from './lib/node';
