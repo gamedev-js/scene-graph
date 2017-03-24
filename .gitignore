@@ -26,6 +26,5 @@ profile
 *.log
 
 # project files
-dist/
 node_modules/
 bower_components/
