@@ -31,9 +31,10 @@ function b(a) {
 }
 
 let v3_a = vmath.vec3.create();
+let q_a = vmath.quat.create();
 let m3_a = vmath.mat3.create();
 let m3_b = vmath.mat3.create();
-let q_a = vmath.quat.create();
+let m4_a = vmath.mat4.create();
 
 class Node {
   constructor (name) {
@@ -319,10 +320,10 @@ class Node {
   getWorldRot (out) {
     vmath.vec3.copy(out, this.lrot);
 
-    // result = lrot * parent.lrot * parent.parent.lrot * ...
+    // result = ... * parent.parent.lrot * parent.lrot * lrot
     let cur = this._parent;
     while (cur) {
-      vmath.quat.mul(out, out, cur.lrot);
+      vmath.quat.mul(out, cur.lrot, out);
 
       cur = cur._parent;
     }
@@ -337,11 +338,11 @@ class Node {
    * Set world position
    */
   setWorldRot (rot) {
-    // lrot = inv(parent.lrot) * rot;
+    // lrot = rot * inv(parent.lrot);
     if (this._parent) {
       this._parent.getWorldRot(this.lrot);
       vmath.quat.invert(this.lrot);
-      vmath.quat.mul(this.lrot, this.lrot, rot);
+      vmath.quat.mul(this.lrot, rot, this.lrot);
 
       return;
     }
@@ -401,6 +402,40 @@ class Node {
   }
 
   /**
+   * @method getLocalMatrix
+   * @param {mat4} out
+   * @return {mat4}
+   *
+   * Calculate and return local transform
+   */
+  getLocalMatrix (out) {
+    vmath.mat4.fromRTS(out, this.lrot, this.lpos, this.lscale);
+    return out;
+  }
+
+  /**
+   * @method getWorldMatrix
+   * @param {mat4} out
+   * @return {mat4}
+   *
+   * Calculate and return world transform
+   */
+  getWorldMatrix (out) {
+    // out = ... * parent.parent.local * parent.local * local;
+    this.getLocalMatrix(out);
+
+    let cur = this._parent;
+    while (cur) {
+      cur.getLocalMatrix(m4_a);
+      vmath.mat4.mul(out, m4_a, out);
+
+      cur = cur._parent;
+    }
+
+    return out;
+  }
+
+  /**
    * @method _getWorldRS
    * @param {mat3} out
    *
@@ -428,7 +463,42 @@ class Node {
   }
 }
 
+/**
+ * @method walk
+ * @param {Node} node
+ * @param {function} fn
+ * @param {Node} fn.node
+ * @param {Node} fn.parent
+ */
+function walk(node, fn) {
+  node.children.forEach(child => {
+    fn(child, node);
+    walk(child, fn);
+  });
+}
+
+/**
+ * @method flat
+ * @param {Node} node
+ */
+function flat(node) {
+  let out = [];
+
+  out.push(node);
+  walk(node, iter => {
+    out.push(iter);
+  });
+
+  return out;
+}
+
+let utils = {
+  walk,
+  flat,
+};
+
 exports.Node = Node;
+exports.utils = utils;
 
 }((this.sg = this.sg || {}),window.vmath));
 //# sourceMappingURL=sg.dev.js.map

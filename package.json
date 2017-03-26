@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/gamedev-js/scene-graph/issues",
   "dependencies": {
-    "vmath": "^1.0.1"
+    "vmath": "^1.1.0"
   },
   "devDependencies": {
     "fs-jetpack": "^0.13.2",
