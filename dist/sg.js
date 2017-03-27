@@ -321,7 +321,7 @@ class Node {
    * Calculate and return world rotation
    */
   getWorldRot (out) {
-    vmath.vec3.copy(out, this.lrot);
+    vmath.quat.copy(out, this.lrot);
 
     // result = ... * parent.parent.lrot * parent.lrot * lrot
     let cur = this._parent;
@@ -341,11 +341,11 @@ class Node {
    * Set world position
    */
   setWorldRot (rot) {
-    // lrot = rot * inv(parent.lrot);
+    // lrot = rot * inv(prarent.wrot);
     if (this._parent) {
       this._parent.getWorldRot(this.lrot);
-      vmath.quat.invert(this.lrot);
-      vmath.quat.mul(this.lrot, rot, this.lrot);
+      vmath.quat.conjugate(this.lrot, this.lrot);
+      vmath.quat.mul(this.lrot, this.lrot, rot);
 
       return;
     }
@@ -363,7 +363,7 @@ class Node {
   getWorldScale (out) {
     // invRot = inv(world_rot)
     this.getWorldRot(q_a);
-    vmath.quat.invert(q_a, q_a);
+    vmath.quat.conjugate(q_a, q_a);
     vmath.mat3.fromQuat(out, q_a);
 
     // worldRotScale
@@ -393,7 +393,7 @@ class Node {
     vmath.vec3.sub(out, out, this.lpos);
 
     // out = inv(lrot) * out
-    vmath.quat.invert(q_a, this.lrot);
+    vmath.quat.conjugate(q_a, this.lrot);
     vmath.mat3.fromQuat(m3_a, q_a);
     vmath.vec3.transformMat3(out, out, m3_a);
 
