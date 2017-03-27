@@ -285,7 +285,7 @@ class Node {
       vmath.vec3.transformMat3(out, out, m3_a);
 
       // out = out + lpos
-      vmath.vec3.add(out, cur.lpos);
+      vmath.vec3.add(out, out, cur.lpos);
 
       cur = cur._parent;
     }
@@ -436,6 +436,20 @@ class Node {
   }
 
   /**
+   * @method getWorldRT
+   * @param {mat4} out
+   * @return {mat4}
+   *
+   * Calculate and return world transform without scale
+   */
+  _getWorldRT (out) {
+    this._getWorldPosAndRot(v3_a, q_a);
+    vmath.mat4.fromRT(out, q_a, v3_a);
+
+    return out;
+  }
+
+  /**
    * @method _getWorldRS
    * @param {mat3} out
    *
@@ -460,6 +474,36 @@ class Node {
     }
 
     return out;
+  }
+
+  /**
+   * @method _getWorldPosAndRot
+   * @param {vec3} opos
+   * @param {vec3} orot
+   *
+   * Calculate and return world position
+   */
+  _getWorldPosAndRot (opos, orot) {
+    vmath.vec3.copy(opos, this.lpos);
+    vmath.quat.copy(orot, this.lrot);
+
+    let cur = this._parent;
+    while (cur) {
+      // opos = parent_lscale * lpos
+      vmath.vec3.mul(opos, opos, cur.lscale);
+
+      // opos = parent_lrot * opos
+      vmath.mat3.fromQuat(m3_a, cur.lrot);
+      vmath.vec3.transformMat3(opos, opos, m3_a);
+
+      // opos = opos + lpos
+      vmath.vec3.add(opos, opos, cur.lpos);
+
+      // orot = lrot * orot
+      vmath.quat.mul(orot, cur.lrot, orot);
+
+      cur = cur._parent;
+    }
   }
 }
 
