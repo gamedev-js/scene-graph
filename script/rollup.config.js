@@ -12,8 +12,8 @@ let banner = `
 `;
 
 let dest = './dist';
-let file = 'sg';
-let moduleName = 'sg';
+let file = 'scene-graph';
+let moduleName = 'sgraph';
 
 // clear directory
 fsJetpack.dir(dest, { empty: true });

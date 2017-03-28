@@ -5,11 +5,8 @@
  * Released under the MIT License.
  */
 
+(function (exports,vmath) {
 'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-var vmath = require('vmath');
 
 // REFERENCE: https://gist.github.com/jed/982883
 
@@ -284,8 +281,7 @@ class Node {
       vmath.vec3.mul(out, out, cur.lscale);
 
       // out = parent_lrot * out
-      vmath.mat3.fromQuat(m3_a, cur.lrot);
-      vmath.vec3.transformMat3(out, out, m3_a);
+      vmath.vec3.transformQuat(out, out, cur.lrot);
 
       // out = out + lpos
       vmath.vec3.add(out, out, cur.lpos);
@@ -394,8 +390,7 @@ class Node {
 
     // out = inv(lrot) * out
     vmath.quat.conjugate(q_a, this.lrot);
-    vmath.mat3.fromQuat(m3_a, q_a);
-    vmath.vec3.transformMat3(out, out, m3_a);
+    vmath.vec3.transformQuat(out, out, q_a);
 
     // out = (1/scale) * out
     vmath.vec3.inverseSafe(v3_a, this.lscale);
@@ -496,8 +491,7 @@ class Node {
       vmath.vec3.mul(opos, opos, cur.lscale);
 
       // opos = parent_lrot * opos
-      vmath.mat3.fromQuat(m3_a, cur.lrot);
-      vmath.vec3.transformMat3(opos, opos, m3_a);
+      vmath.vec3.transformQuat(opos, opos, cur.lrot);
 
       // opos = opos + lpos
       vmath.vec3.add(opos, opos, cur.lpos);
@@ -546,4 +540,6 @@ let utils = {
 
 exports.Node = Node;
 exports.utils = utils;
-//# sourceMappingURL=sg.js.map
+
+}((this.sgraph = this.sgraph || {}),window.vmath));
+//# sourceMappingURL=scene-graph.dev.js.map
