@@ -23,3 +23,7 @@ Design for performance instead of user friendly. The code only contains scene gr
   - prefab ??
   - serialization ??
   - 3d debug environment ??
+
+## License
+
+MIT © 2017 Johnny Wu
