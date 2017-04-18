@@ -1,5 +1,7 @@
 # Scene Graph
 
+[![Travis CI Status](https://travis-ci.org/gamedev-js/scene-graph.svg?branch=master)](https://travis-ci.org/gamedev-js/scene-graph)
+
 Yet another scene graph library.
 
 ## Why?
@@ -15,14 +17,12 @@ Design for performance instead of user friendly. The code only contains scene gr
 
 ## TODO
 
-  - node with transform and parent/children hierarchy
-  - node enable/disable with hierarchy
-  - node clone (always deep copy)
-  - event system
-  - DOP ??
-  - prefab ??
+  - Add disabled, and methods to active node recursilvey.
+  - Documentation
+  - event system ??
+  - nested prefab ??
   - serialization ??
-  - 3d debug environment ??
+  - debug visualization ??
 
 ## License
 
