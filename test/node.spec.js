@@ -1,6 +1,6 @@
 const tap = require('tap');
 const {vec3, quat} = require('vmath');
-const {Node} = require('../dist/sg');
+const {Node} = require('../dist/scene-graph');
 
 tap.test('node', t => {
   t.test('constructor', t => {
@@ -15,6 +15,52 @@ tap.test('node', t => {
     t.assert(vec3.equals(n1.lpos, vec3.new(0,0,0)));
     t.assert(vec3.equals(n1.lrot, quat.new(0,0,0,1)));
     t.assert(vec3.equals(n1.lscale, vec3.new(1,1,1)));
+
+    t.end();
+  });
+
+  t.test('clone', t => {
+    let root = new Node('root');
+    let n0 = new Node('n0');
+    let n1 = new Node('n1');
+    let n2 = new Node('n2');
+
+    n0.setParent(root);
+    n1.setParent(n0);
+    n2.setParent(n1);
+
+    vec3.set(n0.lpos, 1,2,3);
+    vec3.set(n0.lscale, 2,2,2);
+
+    let n0_2 = n0.clone();
+    t.equal(n0_2.name, 'n0');
+    t.assert(vec3.equals(n0_2.lpos, vec3.new(1,2,3)));
+    t.assert(vec3.equals(n0_2.lrot, quat.new(0,0,0,1)));
+    t.assert(vec3.equals(n0_2.lscale, vec3.new(2,2,2)));
+    t.deepEqual(n0_2._children, []);
+    t.equal(n0_2._parent, null);
+
+    t.end();
+  });
+
+  t.test('deepClone', t => {
+    let root = new Node('root');
+    let n0 = new Node('n0');
+    let n1 = new Node('n1');
+    let n2 = new Node('n2');
+
+    n0.setParent(root);
+    n1.setParent(n0);
+    n2.setParent(n1);
+
+    vec3.set(n0.lpos, 1,2,3);
+    vec3.set(n0.lscale, 2,2,2);
+
+    let root2 = root.deepClone();
+    t.equal(root2.name, 'root');
+    t.equal(root2.children[0].name, 'n0');
+    t.notEqual(root2.children[0], n0);
+    t.equal(root2.children[0]._parent, root2);
 
     t.end();
   });
