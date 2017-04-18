@@ -1,6 +1,6 @@
 
 /*
- * scene-graph v1.0.3
+ * scene-graph v1.0.4
  * (c) 2017 @Johnny Wu
  * Released under the MIT License.
  */
@@ -82,29 +82,36 @@ class Node {
 
   /**
    * @method clone
+   * @param {function} fn
    * @return {Node}
    */
-  clone () {
+  clone (fn) {
     let newNode = new Node();
     newNode.name = this.name;
     vmath.vec3.copy(newNode.lpos, this.lpos);
     vmath.vec3.copy(newNode.lscale, this.lscale);
     vmath.quat.copy(newNode.lrot, this.lrot);
 
+    // do user custom clone function
+    if (fn) {
+      fn(newNode, this);
+    }
+
     return newNode;
   }
 
   /**
    * @method deepClone
+   * @param {function} fn
    * @return {Node}
    */
-  deepClone () {
-    let newNode = this.clone();
+  deepClone (fn) {
+    let newNode = this.clone(fn);
 
     newNode._children = new Array(this._children.length);
     for (let i = 0; i < this._children.length; ++i) {
       let child = this._children[i];
-      let newChild = child.deepClone();
+      let newChild = child.deepClone(fn);
       newNode._children[i] = newChild;
       newChild._parent = newNode;
     }
@@ -572,9 +579,35 @@ function flat(node) {
   return out;
 }
 
+/**
+ * @method replace
+ * @param {Node} oldNode
+ * @param {Node} newNode
+ */
+function replace(oldNode, newNode) {
+  newNode.remove();
+
+  let parent = oldNode._parent;
+  if (!parent) {
+    return;
+  }
+
+  oldNode._parent = null;
+  newNode._parent = parent;
+
+  let len = parent._children.length;
+  for (let i = 0; i < len; ++i) {
+    if (parent._children[i] === oldNode) {
+      parent._children[i] = newNode;
+      return;
+    }
+  }
+}
+
 let utils = {
   walk,
   flat,
+  replace,
 };
 
 exports.Node = Node;
