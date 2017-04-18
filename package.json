@@ -1,6 +1,6 @@
 {
   "name": "scene-graph",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A very simple scene graph library",
   "main": "dist/scene-graph.js",
   "scripts": {

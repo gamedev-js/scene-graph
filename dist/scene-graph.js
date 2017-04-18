@@ -1,6 +1,6 @@
 
 /*
- * scene-graph v1.0.2
+ * scene-graph v1.0.3
  * (c) 2017 @Johnny Wu
  * Released under the MIT License.
  */
@@ -74,6 +74,42 @@ class Node {
    */
   get children () {
     return this._children;
+  }
+
+  // ===============================
+  // utils
+  // ===============================
+
+  /**
+   * @method clone
+   * @return {Node}
+   */
+  clone () {
+    let newNode = new Node();
+    newNode.name = this.name;
+    vmath.vec3.copy(newNode.lpos, this.lpos);
+    vmath.vec3.copy(newNode.lscale, this.lscale);
+    vmath.quat.copy(newNode.lrot, this.lrot);
+
+    return newNode;
+  }
+
+  /**
+   * @method deepClone
+   * @return {Node}
+   */
+  deepClone () {
+    let newNode = this.clone();
+
+    newNode._children = new Array(this._children.length);
+    for (let i = 0; i < this._children.length; ++i) {
+      let child = this._children[i];
+      let newChild = child.deepClone();
+      newNode._children[i] = newChild;
+      newChild._parent = newNode;
+    }
+
+    return newNode;
   }
 
   // ===============================
