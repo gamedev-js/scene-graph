@@ -559,8 +559,11 @@ class Node {
  */
 function walk(node, fn) {
   node.children.forEach(child => {
-    fn(child, node);
-    walk(child, fn);
+    let continueWalk = fn(child, node);
+
+    if (continueWalk !== false) {
+      walk(child, fn);
+    }
   });
 }
 
