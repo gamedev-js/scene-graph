@@ -1,6 +1,6 @@
 
 /*
- * scene-graph v1.0.4
+ * scene-graph v1.1.0
  * (c) 2017 @Johnny Wu
  * Released under the MIT License.
  */
@@ -305,6 +305,27 @@ class Node {
 
     // console.warn(`Failed to remove node ${node.name}, can not find it.`);
     return false;
+  }
+
+  // ===============================
+  // transform helper
+  // ===============================
+
+  /**
+   * @method getWorldPos
+   * @param {vec3} pos
+   * @param {vec3} [up] - default is (0,1,0)
+   * @return {vec3}
+   *
+   * Set rotation by lookAt target point
+   */
+  lookAt (pos, up) {
+    this.getWorldPos(v3_a);
+    vmath.vec3.sub(v3_a, v3_a, pos); // NOTE: we use -z for view-dir
+    vmath.vec3.normalize(v3_a, v3_a);
+    vmath.quat.fromViewUp(q_a, v3_a, up);
+
+    this.setWorldRot(q_a);
   }
 
   // ===============================
