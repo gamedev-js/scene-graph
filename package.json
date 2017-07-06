@@ -1,8 +1,9 @@
 {
   "name": "scene-graph",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A very simple scene graph library",
   "main": "dist/scene-graph.js",
+  "jsnext:main": "index.js",
   "scripts": {
     "build:dev": "rollup -c ./script/rollup.config.js",
     "build:min": "uglifyjs ./dist/scene-graph.dev.js --mangle --source-map url=scene-graph.min.js.map -o ./dist/scene-graph.min.js",
