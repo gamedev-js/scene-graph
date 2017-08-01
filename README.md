@@ -15,11 +15,9 @@ Design for performance instead of user friendly. The code only contains scene gr
     - [display-tree](https://github.com/hughsk/display-tree)
   - [litescene.js](https://github.com/jagenjo/litescene.js)
 
-## TODO
+## Documentation
 
-  - Documentation
-  - Add disabled, and methods to active node recursilvey.
-  - debug visualization ??
+TODO
 
 ## License
 
