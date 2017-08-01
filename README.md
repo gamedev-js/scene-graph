@@ -17,11 +17,8 @@ Design for performance instead of user friendly. The code only contains scene gr
 
 ## TODO
 
-  - Add disabled, and methods to active node recursilvey.
   - Documentation
-  - event system ??
-  - nested prefab ??
-  - serialization ??
+  - Add disabled, and methods to active node recursilvey.
   - debug visualization ??
 
 ## License

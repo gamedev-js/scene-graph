@@ -19,6 +19,51 @@ tap.test('node', t => {
     t.end();
   });
 
+  t.test('enable', t => {
+    let root = new Node('root');
+    let n0 = new Node('n0');
+    let n1 = new Node('n1');
+    let n2 = new Node('n2');
+    let n11 = new Node('n11');
+    let n22 = new Node('n22');
+
+    n0.setParent(root);
+    n1.setParent(n0);
+    n11.setParent(n0);
+    n2.setParent(n1);
+    n22.setParent(n11);
+
+    let n0_walked = false;
+    let n1_walked = false;
+    let n2_walked = false;
+    let n11_walked = false;
+    let n22_walked = false;
+
+    n11._enabled = false;
+
+    n0.enable(false, node => {
+      if (node === n0) {
+        n0_walked = true;
+      } else if (node === n1) {
+        n1_walked = true;
+      } else if (node === n2) {
+        n2_walked = true;
+      } else if (node === n11) {
+        n11_walked = true;
+      } else if (node === n22) {
+        n22_walked = true;
+      }
+    });
+
+    t.equal(n0_walked, true);
+    t.equal(n1_walked, true);
+    t.equal(n2_walked, true);
+    t.equal(n11_walked, false);
+    t.equal(n22_walked, false);
+
+    t.end();
+  });
+
   t.test('clone', t => {
     let root = new Node('root');
     let n0 = new Node('n0');
