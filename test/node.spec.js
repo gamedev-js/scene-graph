@@ -1,6 +1,6 @@
 const tap = require('tap');
-const {vec3, quat} = require('vmath');
-const {Node} = require('../dist/scene-graph');
+const { vec3, quat } = require('vmath');
+const { Node } = require('../dist/scene-graph');
 
 tap.test('node', t => {
   t.test('constructor', t => {
@@ -30,11 +30,14 @@ tap.test('node', t => {
     Node.mixin(Foo);
 
     let foo1 = new Foo();
+    let foo2 = new Foo();
+    foo1.append(foo2);
 
     t.equal(foo1.name, '');
     t.assert(vec3.equals(foo1.lpos, vec3.new(0,0,0)));
     t.assert(vec3.equals(foo1.lrot, quat.new(0,0,0,1)));
     t.assert(vec3.equals(foo1.lscale, vec3.new(1,1,1)));
+    t.equal(foo2.parent, foo1);
 
     t.end();
   });
