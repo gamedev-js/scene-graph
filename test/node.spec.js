@@ -19,6 +19,26 @@ tap.test('node', t => {
     t.end();
   });
 
+  t.test('mixin', t => {
+    class Foo {
+      constructor() {
+        this.foo = 'foo';
+        this.bar = 'bar';
+        this.__initNode();
+      }
+    }
+    Node.mixin(Foo);
+
+    let foo1 = new Foo();
+
+    t.equal(foo1.name, '');
+    t.assert(vec3.equals(foo1.lpos, vec3.new(0,0,0)));
+    t.assert(vec3.equals(foo1.lrot, quat.new(0,0,0,1)));
+    t.assert(vec3.equals(foo1.lscale, vec3.new(1,1,1)));
+
+    t.end();
+  });
+
   t.test('enable', t => {
     let root = new Node('root');
     let n0 = new Node('n0');
