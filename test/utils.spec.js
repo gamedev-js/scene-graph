@@ -66,6 +66,8 @@ tap.test('utils', t => {
 
     t.equal(utils.enabledInHierarchy(n2), true);
     t.equal(utils.enabledInHierarchy(n22), false);
+    t.equal(utils.enabledInHierarchy(n11), false);
+    t.equal(utils.enabledInHierarchy(n1, false), true);
 
     t.end();
   });
