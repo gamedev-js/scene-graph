@@ -1542,9 +1542,9 @@ verror@1.3.6:
   dependencies:
     extsprintf "1.0.2"
 
-vmath@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/vmath/-/vmath-1.3.1.tgz#54f6a522b519f4d771fd8f0f5b3981a81d9f37cd"
+vmath@^1.4.5:
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/vmath/-/vmath-1.4.5.tgz#08c1233c5ad71442a80b2d92117d00f1bf26f3c6"
 
 which-module@^1.0.0:
   version "1.0.0"
