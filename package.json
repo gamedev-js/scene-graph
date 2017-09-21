@@ -27,14 +27,15 @@
     "url": "https://github.com/gamedev-js/scene-graph/issues"
   },
   "homepage": "https://github.com/gamedev-js/scene-graph/issues",
-  "dependencies": {},
+  "dependencies": {
+    "vmath": "^1.4.5"
+  },
   "devDependencies": {
     "fs-jetpack": "^0.13.2",
     "rollup": "^0.41.4",
     "rollup-watch": "^3.2.2",
     "tap": "^10.3.0",
     "uglify-es": "^3.0.15",
-    "vmath": "^1.4.5"
   },
   "files": [
     "dist",
