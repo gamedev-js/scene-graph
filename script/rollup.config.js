@@ -1,36 +1,48 @@
 'use strict';
 
+const buble = require('rollup-plugin-buble');
 const fsJetpack = require('fs-jetpack');
 const pjson = require('../package.json');
 
 let banner = `
 /*
  * ${pjson.name} v${pjson.version}
- * (c) ${new Date().getFullYear()} @Johnny Wu
+ * (c) ${new Date().getFullYear()} @gamedev-js
  * Released under the MIT License.
  */
 `;
 
 let dest = './dist';
 let file = 'scene-graph';
-let moduleName = 'sgraph';
+let name = 'sgraph';
+let sourcemap = true;
+let globals = { 'vmath': 'window.vmath' };
 
 // clear directory
 fsJetpack.dir(dest, { empty: true });
 
 module.exports = {
-  entry: './index.js',
-  targets: [
-    { dest: `${dest}/${file}.dev.js`, format: 'iife' },
-    { dest: `${dest}/${file}.js`, format: 'cjs' },
+  input: './index.js',
+  external: ['vmath'],
+  plugins: [
+    buble(),
   ],
-  moduleName,
-  banner,
-  external: [
-    'vmath'
+  output: [
+    {
+      file: `${dest}/${file}.dev.js`,
+      format: 'iife',
+      name,
+      banner,
+      globals,
+      sourcemap
+    },
+    {
+      file: `${dest}/${file}.js`,
+      format: 'cjs',
+      name,
+      banner,
+      globals,
+      sourcemap
+    },
   ],
-  globals: {
-    'vmath': 'window.vmath'
-  },
-  sourceMap: true,
 };
