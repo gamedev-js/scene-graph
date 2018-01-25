@@ -3,6 +3,94 @@ const { vec3, quat } = require('vmath');
 const { Node, utils } = require('../dist/scene-graph');
 
 tap.test('utils', t => {
+  t.test('walk', t => {
+    let root = new Node('root');
+    let n0 = new Node('n0');
+    let n1 = new Node('n1');
+    let n2 = new Node('n2');
+    let n11 = new Node('n11');
+    let n22 = new Node('n22');
+
+    n0.setParent(root);
+    n1.setParent(root);
+    n11.setParent(n1);
+    n2.setParent(root);
+    n22.setParent(n2);
+
+    let n0_walked = false;
+    let n1_walked = false;
+    let n2_walked = false;
+    let n11_walked = false;
+    let n22_walked = false;
+
+    utils.walk(root, node => {
+      if (node === n0) {
+        n0_walked = true;
+      } else if (node === n1) {
+        n1_walked = true;
+        return false;
+      } else if (node === n2) {
+        n2_walked = true;
+      } else if (node === n11) {
+        n11_walked = true;
+      } else if (node === n22) {
+        n22_walked = true;
+      }
+    });
+
+    t.equal(n0_walked, true);
+    t.equal(n1_walked, true);
+    t.equal(n2_walked, false);
+    t.equal(n11_walked, false);
+    t.equal(n22_walked, false);
+
+    t.end();
+  });
+
+  t.test('walkSibling', t => {
+    let root = new Node('root');
+    let n0 = new Node('n0');
+    let n1 = new Node('n1');
+    let n2 = new Node('n2');
+    let n11 = new Node('n11');
+    let n22 = new Node('n22');
+
+    n0.setParent(root);
+    n1.setParent(root);
+    n11.setParent(n1);
+    n2.setParent(root);
+    n22.setParent(n2);
+
+    let n0_walked = false;
+    let n1_walked = false;
+    let n2_walked = false;
+    let n11_walked = false;
+    let n22_walked = false;
+
+    utils.walkSibling(root, node => {
+      if (node === n0) {
+        n0_walked = true;
+      } else if (node === n1) {
+        n1_walked = true;
+        return false;
+      } else if (node === n2) {
+        n2_walked = true;
+      } else if (node === n11) {
+        n11_walked = true;
+      } else if (node === n22) {
+        n22_walked = true;
+      }
+    });
+
+    t.equal(n0_walked, true);
+    t.equal(n1_walked, true);
+    t.equal(n2_walked, true);
+    t.equal(n11_walked, false);
+    t.equal(n22_walked, true);
+
+    t.end();
+  });
+
   t.test('enable', t => {
     let root = new Node('root');
     let n0 = new Node('n0');
